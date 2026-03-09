@@ -54,6 +54,25 @@ def load_model(model_path=None, required=False):
 
     if model_path is None:
         model_path = config.MODEL_DIR / config.OILSEED_MODEL_FILENAME
+        # Render Secret Files : fichier uploadé disponible dans /etc/secrets/<filename>
+        if not Path(model_path).exists():
+            secret_path = Path("/etc/secrets") / config.OILSEED_MODEL_FILENAME
+            if secret_path.exists():
+                model_path = secret_path
+        # Fallback : chemin relatif au répertoire de travail (Render peut lancer depuis ailleurs)
+        if not Path(model_path).exists():
+            cwd_path = Path(os.getcwd()) / "models" / config.OILSEED_MODEL_FILENAME
+            if cwd_path.exists():
+                model_path = cwd_path
+
+    path_resolved = Path(model_path).resolve()
+    exists = path_resolved.exists()
+    logger.info("Model path: %s (exists: %s)", path_resolved, exists)
+    if not exists and config.MODEL_DIR.exists():
+        try:
+            logger.info("Contents of models dir: %s", list(config.MODEL_DIR.iterdir()))
+        except Exception as e:
+            logger.warning("Could not list models dir: %s", e)
 
     if not Path(model_path).exists():
         if required:
