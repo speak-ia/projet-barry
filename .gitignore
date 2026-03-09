@@ -1,0 +1,43 @@
+# Environnement virtuel
+.venv/
+venv/
+env/
+
+# Données (ne pas pousser les images sur GitHub)
+dataset/
+Soja/
+Tournesol/
+Cocotier/
+Arachide/
+*.jpg
+*.jpeg
+*.png
+*.webp
+
+# Modèles entraînés (lourd ; à déployer via Render Secret Files ou plus tard)
+models/*.pth
+models/*.onnx
+
+# Résultats d'entraînement / évaluation
+results/*.json
+results/*.png
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# IDE / OS
+.DS_Store
+.idea/
+*.swp
+*.swo
+
+# Optionnel : garder la structure des dossiers vides (créer models/.gitkeep si besoin)
+!models/.gitkeep
+!results/.gitkeep

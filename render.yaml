@@ -1,0 +1,17 @@
+# Render Blueprint — Déploiement API Oilseed (Flask)
+# https://render.com/docs/blueprint-spec
+services:
+  - type: web
+    name: oilseed-api
+    runtime: python
+    region: frankfurt
+
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn -w 1 -b 0.0.0.0:$PORT --timeout 120 api_server:app
+
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11"
+
+    # Optionnel : ajouter le modèle plus tard via Secret Files ou en le commitant
+    # healthCheckPath: /health
