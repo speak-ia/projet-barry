@@ -17,6 +17,8 @@ Arachide/
 # Modèles entraînés (lourd ; à déployer via Render Secret Files ou plus tard)
 models/*.pth
 models/*.onnx
+# Exception : pousser le modèle oilseed pour déploiement Render
+!models/oilseed_mobilenet.pth
 
 # Résultats d'entraînement / évaluation
 results/*.json
