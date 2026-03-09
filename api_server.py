@@ -80,6 +80,21 @@ def load_model(model_path=None, required=False):
     return True
 
 
+@app.route("/", methods=["GET"])
+def index():
+    """Page d'accueil : infos et liens vers les endpoints."""
+    base = request.url_root.rstrip("/")
+    return jsonify({
+        "service": "API Oilseed — détection plantes oléagineuses",
+        "endpoints": {
+            "health": f"{base}/health",
+            "classes": f"{base}/classes",
+            "predict": f"{base}/predict (POST, multipart/form-data: image)",
+        },
+        "model_loaded": model is not None,
+    })
+
+
 @app.route("/health", methods=["GET"])
 def health_check():
     """Health check endpoint."""
