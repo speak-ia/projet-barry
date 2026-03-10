@@ -99,6 +99,13 @@ def load_model(model_path=None, required=False):
     return True
 
 
+# Charger le modèle au démarrage du process (utile pour gunicorn sur Render)
+try:
+    load_model()
+except Exception as e:
+    logger.warning("Could not load model at startup: %s", e)
+
+
 @app.route("/", methods=["GET"])
 def index():
     """Page d'accueil : infos et liens vers les endpoints."""
