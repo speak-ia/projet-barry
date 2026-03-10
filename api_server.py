@@ -33,7 +33,16 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
-CORS(app)
+
+# CORS explicite pour Flutter Web (planthuile.web.app, etc.) — évite "Failed to fetch"
+CORS(
+    app,
+    resources={r"/*": {"origins": "*"}},
+    methods=["GET", "POST", "OPTIONS"],
+    allow_headers=["Content-Type", "Accept", "Authorization"],
+    expose_headers=["*"],
+    supports_credentials=False,
+)
 
 # Global model (loaded once)
 model = None
