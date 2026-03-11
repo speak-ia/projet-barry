@@ -1,0 +1,7 @@
+# Dépendances minimales pour l'API (déploiement Railway / Cloud Run)
+# PyTorch est installé séparément en version CPU dans le Dockerfile pour un build plus rapide.
+numpy>=1.24.0
+Pillow>=10.0.0
+flask>=2.3.0
+flask-cors>=4.0.0
+gunicorn>=21.0.0
