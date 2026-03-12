@@ -17,5 +17,6 @@ COPY . .
 ENV PORT=8080
 EXPOSE 8080
 
-# Cloud Run et Railway fournissent PORT en variable d'environnement
-CMD gunicorn -w 1 -b 0.0.0.0:${PORT} --timeout 300 api_server:app
+# Cloud Run et Railway fournissent PORT en variable d'environnement.
+# CMD en forme "shell" pour que ${PORT} soit bien développé au démarrage.
+CMD ["sh", "-c", "gunicorn -w 1 -b 0.0.0.0:${PORT} --timeout 120 api_server:app"]

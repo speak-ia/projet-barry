@@ -70,7 +70,7 @@ Si Render renvoie **502 Bad Gateway** et **CORS** (l’instance free s’éteint
 2. **New Project** → **Deploy from GitHub repo** → choisir **speak-ia/projet-barry**.
 3. **Utiliser le Dockerfile** (recommandé) : Railway détecte le `Dockerfile` à la racine. Il installe PyTorch **CPU uniquement** et `requirements-api.txt` pour rester sous le timeout de build (~5–10 min au lieu de 25+ min).
    - Si tu configures à la main : **Build Command** = laisser vide (build Docker) ou ne pas override.
-   - **Start Command** : inutile si le Dockerfile définit déjà `CMD`.
+   - **Start Command** : laisser vide pour utiliser le `CMD` du Dockerfile (sinon Railway peut lancer la commande sans shell et `$PORT` ne sera pas développé → erreur « '$PORT' is not a valid port number »). Si tu mets une commande custom, utilise : `sh -c 'gunicorn -w 1 -b 0.0.0.0:$PORT --timeout 120 api_server:app'`.
 4. Dans **Settings** → **Networking** → **Generate Domain** pour obtenir une URL publique.
 5. Le modèle `models/oilseed_mobilenet.pth` est dans le repo, il sera inclus au build.
 6. Dans Flutter, mettre `baseUrl` = l’URL Railway (ex. `https://oilseed-api-production-xxxx.up.railway.app`).
